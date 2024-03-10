@@ -181,7 +181,6 @@ PLATFORM_SYSTEMSDK_VERSIONS :=
 ifneq (,$(PLATFORM_SYSTEMSDK_MIN_VERSION))
   $(if $(call math_is_number,$(PLATFORM_SYSTEMSDK_MIN_VERSION)),,\
     $(error PLATFORM_SYSTEMSDK_MIN_VERSION must be a number, but was $(PLATFORM_SYSTEMSDK_MIN_VERSION)))
-  PLATFORM_SYSTEMSDK_VERSIONS := $(call int_range_list,$(PLATFORM_SYSTEMSDK_MIN_VERSION),$(PLATFORM_SDK_VERSION))
 endif
 # Platform always supports the current version
 ifeq (REL,$(PLATFORM_VERSION_CODENAME))

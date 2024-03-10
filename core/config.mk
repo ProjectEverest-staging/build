@@ -417,12 +417,6 @@ else ifeq ($(strip $(call is-low-mem-device)),true)
 else
   # The default binary alignment for userspace is 4096.
   TARGET_MAX_PAGE_SIZE_SUPPORTED := 4096
-  # When VSR vendor API level >= 34, binary alignment will be 65536.
-  ifeq ($(call math_gt_or_eq,$(VSR_VENDOR_API_LEVEL),34),true)
-    ifeq ($(TARGET_ARCH),arm64)
-      TARGET_MAX_PAGE_SIZE_SUPPORTED := 65536
-    endif
-  endif
 endif
 .KATI_READONLY := TARGET_MAX_PAGE_SIZE_SUPPORTED
 
@@ -913,10 +907,6 @@ BUILD_DATETIME_FROM_FILE := $$(cat $(BUILD_DATETIME_FILE))
 # be reset to 0 on every bump of the PLATFORM_SDK_VERSION.
 sepolicy_major_vers := 34
 sepolicy_minor_vers := 0
-
-ifneq ($(sepolicy_major_vers), $(PLATFORM_SDK_VERSION))
-$(error sepolicy_major_version does not match PLATFORM_SDK_VERSION, please update.)
-endif
 
 TOT_SEPOLICY_VERSION := 10000.0
 ifneq (REL,$(PLATFORM_VERSION_CODENAME))

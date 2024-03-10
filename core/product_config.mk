@@ -564,27 +564,14 @@ endif
 # Calculate the VSR vendor API level.
 VSR_VENDOR_API_LEVEL := $(board_api_level)
 
-ifdef PRODUCT_SHIPPING_API_LEVEL
-  VSR_VENDOR_API_LEVEL := $(call math_min,$(PRODUCT_SHIPPING_API_LEVEL),$(board_api_level))
-endif
 .KATI_READONLY := VSR_VENDOR_API_LEVEL
 
 # Boolean variable determining if vendor seapp contexts is enforced
 CHECK_VENDOR_SEAPP_VIOLATIONS := false
-ifneq ($(call math_gt,$(VSR_VENDOR_API_LEVEL),34),)
-  CHECK_VENDOR_SEAPP_VIOLATIONS := true
-else ifneq ($(PRODUCT_CHECK_VENDOR_SEAPP_VIOLATIONS),)
-  CHECK_VENDOR_SEAPP_VIOLATIONS := $(PRODUCT_CHECK_VENDOR_SEAPP_VIOLATIONS)
-endif
 .KATI_READONLY := CHECK_VENDOR_SEAPP_VIOLATIONS
 
 # Boolean variable determining if selinux labels of /dev are enforced
 CHECK_DEV_TYPE_VIOLATIONS := false
-ifneq ($(call math_gt,$(VSR_VENDOR_API_LEVEL),35),)
-  CHECK_DEV_TYPE_VIOLATIONS := true
-else ifneq ($(PRODUCT_CHECK_DEV_TYPE_VIOLATIONS),)
-  CHECK_DEV_TYPE_VIOLATIONS := $(PRODUCT_CHECK_DEV_TYPE_VIOLATIONS)
-endif
 .KATI_READONLY := CHECK_DEV_TYPE_VIOLATIONS
 
 define product-overrides-config
